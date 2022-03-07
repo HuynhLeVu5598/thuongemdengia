@@ -2,4 +2,4 @@ paho-mqtt
 Flask
 Flask-MQTT
 flask-ngrok
-gunicore
+gunicorn
