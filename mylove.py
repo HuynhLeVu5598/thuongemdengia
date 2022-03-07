@@ -87,7 +87,7 @@ def chart_data_ND():
                 }
             )
             yield f"data:{json_data}\n\n"
-            time.sleep(1)
+            time.sleep(5)
 
     return Response(generate_random_data(), mimetype="text/event-stream")
 
@@ -106,7 +106,7 @@ def chart_data_PH():
                 }
             )
             yield f"data:{json_data}\n\n"
-            time.sleep(1)
+            time.sleep(5)
 
     return Response(generate_random_data(), mimetype="text/event-stream")
 
@@ -125,7 +125,7 @@ def chart_data_OXY():
                 }
             )
             yield f"data:{json_data}\n\n"
-            time.sleep(1)
+            time.sleep(5)
 
     return Response(generate_random_data(), mimetype="text/event-stream")
 
