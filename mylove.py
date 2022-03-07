@@ -25,15 +25,15 @@ ph, nd, oxy = None, None, None
 def handle_connect(client, userdata, flags, rc):
 
     # Đăng ký kênh riêng biệt
-    # mqtt.subscribe("tlqb/ND")
-    # mqtt.subscribe("tlqb/PH")
-    # mqtt.subscribe("tlqb/OXY")
+    mqtt.subscribe("tlqb/ND")
+    mqtt.subscribe("tlqb/PH")
+    mqtt.subscribe("tlqb/OXY")
     # while True:
     # mqtt.publish("PH", "70")
     # time.sleep(2)
 
     # Đăng ký tất cả các kênh
-    mqtt.subscribe("#")
+    #mqtt.subscribe("#")
 
 
 @mqtt.on_message()
