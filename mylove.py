@@ -5,10 +5,10 @@ from datetime import datetime
 from flask import Flask, Response, jsonify, render_template, request
 from flask_mqtt import Mqtt
 from datetime import datetime
-#from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
-#run_with_ngrok(app)
+run_with_ngrok(app)
 random.seed()
 
 app.config["MQTT_BROKER_URL"] = "broker.emqx.io"
@@ -25,15 +25,15 @@ ph, nd, oxy = None, None, None
 def handle_connect(client, userdata, flags, rc):
 
     # Đăng ký kênh riêng biệt
-    mqtt.subscribe("tlqb/ND")
-    mqtt.subscribe("tlqb/PH")
-    mqtt.subscribe("tlqb/OXY")
+    # mqtt.subscribe("tlqb/ND")
+    # mqtt.subscribe("tlqb/PH")
+    # mqtt.subscribe("tlqb/OXY")
     # while True:
     # mqtt.publish("PH", "70")
     # time.sleep(2)
 
     # Đăng ký tất cả các kênh
-    #mqtt.subscribe("#")
+    mqtt.subscribe("iot")
 
 
 @mqtt.on_message()
@@ -41,12 +41,17 @@ def handle_mqtt_message(client, userdata, message):
     global ph, nd, oxy
     data = dict(topic=message.topic, payload=message.payload.decode())
     print(data)
-    if message.topic == "tlqb/ND":
-        nd = message.payload.decode()
-    if message.topic == "tlqb/PH":
-        ph = message.payload.decode()
-    if message.topic == "tlqb/OXY":
-        oxy = message.payload.decode()
+    # if message.topic == "tlqb/ND":
+    #     nd = message.payload.decode()
+    # if message.topic == "tlqb/PH":
+    #     ph = message.payload.decode()
+    # if message.topic == "tlqb/OXY":
+    #     oxy = message.payload.decode()
+    if message.topic == "iot":
+        value = json.loads(message.payload)
+        nd = value["ND"]
+        ph = value["PH"]
+        oxy = value['OXY']
     print(nd, ph, oxy, "****************************** \n")
 
 
