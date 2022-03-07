@@ -5,10 +5,10 @@ from datetime import datetime
 from flask import Flask, Response, jsonify, render_template, request
 from flask_mqtt import Mqtt
 from datetime import datetime
-#from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
-#run_with_ngrok(app)
+run_with_ngrok(app)
 random.seed()
 
 app.config["MQTT_BROKER_URL"] = "localhost"
