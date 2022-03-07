@@ -90,39 +90,56 @@
 
         const lineChart = new Chart(context, config);
 
-        const source = new EventSource("/chart-data_ND");
-        const sourcePH = new EventSource("/chart-data_PH");
-        const sourceOXY = new EventSource("/chart-data_OXY");
-        
+        const source = new EventSource("/chart-data");
+        // const sourceND = new EventSource("/chart-data_ND");
+        // const sourcePH = new EventSource("/chart-data_PH");
+        // const sourceOXY = new EventSource("/chart-data_OXY");
+
         source.onmessage = function (event) {
             const data = JSON.parse(event.data);
             if (config.data.labels.length === 20) {
                 config.data.labels.shift();
                 config.data.datasets[0].data.shift();
+                config.data.datasets[1].data.shift();
+                config.data.datasets[2].data.shift();
             }
 
             config.data.labels.push(data.time);
-            config.data.datasets[0].data.push(data.value);
+            config.data.datasets[0].data.push(data.value1);
+            config.data.datasets[1].data.push(data.value2);
+            config.data.datasets[2].data.push(data.value3);
             lineChart.update();
         }
-        sourcePH.onmessage = function (event) {
-            const data = JSON.parse(event.data);
-            if (config.data.labels.length === 20) {
-                //config.data.labels.shift();
-                config.data.datasets[1].data.shift();
-            }
-            config.data.datasets[1].data.push(data.value);
-            lineChart.update();
-        }
-        sourceOXY.onmessage = function (event) {
-            const data = JSON.parse(event.data);
-            if (config.data.labels.length === 20) {
-                //config.data.labels.shift();
-                config.data.datasets[2].data.shift();
-            }
-            config.data.datasets[2].data.push(data.value);
-            lineChart.update();
-        }
+
+        // sourceND.onmessage = function (event) {
+        //     const data = JSON.parse(event.data);
+        //     if (config.data.labels.length === 20) {
+        //         config.data.labels.shift();
+        //         config.data.datasets[0].data.shift();
+        //     }
+
+        //     config.data.labels.push(data.time);
+        //     config.data.datasets[0].data.push(data.value);
+        //     lineChart.update();
+        // }
+        // sourcePH.onmessage = function (event) {
+        //     const data = JSON.parse(event.data);
+        //     if (config.data.labels.length === 20) {
+        //         //config.data.labels.shift();
+        //         config.data.datasets[1].data.shift();
+        //     }
+        //     config.data.datasets[1].data.push(data.value);
+        //     lineChart.update();
+        // }
+        // sourceOXY.onmessage = function (event) {
+        //     const data = JSON.parse(event.data);
+        //     if (config.data.labels.length === 20) {
+        //         //config.data.labels.shift();
+        //         config.data.datasets[2].data.shift();
+        //     }
+        //     config.data.datasets[2].data.push(data.value);
+        //     lineChart.update();
+        // }
     });
 </script>
 </body>

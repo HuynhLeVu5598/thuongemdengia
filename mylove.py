@@ -72,8 +72,8 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/chart-data_ND")
-def chart_data_ND():
+@app.route("/chart-data")
+def chart_data():
     global nd
 
     def generate_random_data():
@@ -83,51 +83,71 @@ def chart_data_ND():
             json_data = json.dumps(
                 {
                     "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "value": int(nd),
+                    "value1": int(nd),
+                    "value2": int(ph),
+                    "value3": int(oxy),
                 }
             )
             yield f"data:{json_data}\n\n"
-            time.sleep(5)
+            time.sleep(1)
 
     return Response(generate_random_data(), mimetype="text/event-stream")
 
+# @app.route("/chart-data_ND")
+# def chart_data_ND():
+#     global nd
 
-@app.route("/chart-data_PH")
-def chart_data_PH():
-    global ph
+#     def generate_random_data():
 
-    def generate_random_data():
-        while True:
-            # mqtt.publish("PH", "70")
-            json_data = json.dumps(
-                {
-                    # "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "value": int(ph),
-                }
-            )
-            yield f"data:{json_data}\n\n"
-            time.sleep(5)
+#         while True:
+#             # mqtt.publish("PH", "70")
+#             json_data = json.dumps(
+#                 {
+#                     "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+#                 }
+#             )
+#             yield f"data:{json_data}\n\n"
+#             time.sleep(1)
 
-    return Response(generate_random_data(), mimetype="text/event-stream")
+#     return Response(generate_random_data(), mimetype="text/event-stream")
 
 
-@app.route("/chart-data_OXY")
-def chart_data_OXY():
-    global oxy
+# @app.route("/chart-data_PH")
+# def chart_data_PH():
+#     global ph
 
-    def generate_random_data():
-        while True:
-            # mqtt.publish("PH", "70")
-            json_data = json.dumps(
-                {
-                    # "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "value": int(oxy),
-                }
-            )
-            yield f"data:{json_data}\n\n"
-            time.sleep(5)
+#     def generate_random_data():
+#         while True:
+#             # mqtt.publish("PH", "70")
+#             json_data = json.dumps(
+#                 {
+#                     # "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+#                     "value": int(ph),
+#                 }
+#             )
+#             yield f"data:{json_data}\n\n"
+#             time.sleep(1)
 
-    return Response(generate_random_data(), mimetype="text/event-stream")
+#     return Response(generate_random_data(), mimetype="text/event-stream")
+
+
+# @app.route("/chart-data_OXY")
+# def chart_data_OXY():
+#     global oxy
+
+#     def generate_random_data():
+#         while True:
+#             # mqtt.publish("PH", "70")
+#             json_data = json.dumps(
+#                 {
+#                     # "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+#                     "value": int(oxy),
+#                 }
+#             )
+#             yield f"data:{json_data}\n\n"
+#             time.sleep(1)
+
+#     return Response(generate_random_data(), mimetype="text/event-stream")
 
 
 @app.route("/_stuff", methods=["GET"])
