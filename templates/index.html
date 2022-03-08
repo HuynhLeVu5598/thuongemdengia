@@ -15,14 +15,41 @@ function update_values() {
             $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
             $.getJSON($SCRIPT_ROOT+"/_stuff",
                 function(data) {
-                    $("#nd").text(data.nd);
-                    $("#ph").text( data.ph);
-                    $("#oxy").text(data.oxy);
-                    $("#timenow").text(data.timenow);
+					var my_nd = document.getElementById("nd");
+					my_nd.innerText = data.nd
+					var my_ph = document.getElementById("ph");
+					my_ph.innerText = data.ph
+					var my_oxy = document.getElementById("oxy");
+					my_oxy.innerText = data.oxy
+					var my_oxy = document.getElementById("timenow");
+					my_oxy.innerText = data.timenow
+                    //$("#nd").text(data.nd);
+                    //$("#ph").text( data.ph);
+                    //$("#oxy").text(data.oxy);
+                    //$("#timenow").text(data.timenow);
                 console.log(data)
 
                 });
         }
+// var intervalID = setInterval(update_values, 1000);
+// function update_values() {
+// 	const source = new EventSource("/chart-data");
+
+// 	source.onmessage = function (event) {
+// 		const data = JSON.parse(event.data);
+// 	}
+	// var my_nd = document.getElementById("nd");
+	// my_nd.innerText = data.nd
+	// console.log(my_nd.innerText)
+
+	// var my_ph = document.getElementById("ph");
+	// my_ph.innerText = data.ph
+	// console.log(my_ph.innerText)
+
+	// var my_oxy = document.getElementById("oxy");
+	// my_oxy.innerText = data.oxy
+	// console.log(my_oxy.innerText)
+
 
 </script>
 <body on_load ="update_values">
@@ -43,10 +70,26 @@ function update_values() {
 <a href="https://thuongemdengia.herokuapp.com/">graph</a>
 
 <script>
-	document.getElementById("nd").innerHTML;
-	document.getElementById("ph").innerHTML;
-	document.getElementById("oxy").innerHTML;
-	document.getElementById("timenow").innerHTML;
+
+	const source = new EventSource("/chart-data");
+
+	source.onmessage = function (event) {
+		const data = JSON.parse(event.data);
+	}
+	var my_nd = document.getElementById("nd");
+	my_nd.innerText = data.datasets[0]
+	console.log(my_nd.innerText)
+
+	var my_ph = document.getElementById("ph");
+	my_ph.innerText = data.datasets[1]
+	console.log(my_ph.innerText)
+
+	var my_oxy = document.getElementById("oxy");
+	my_oxy.innerText = data.datasets[2]
+	console.log(my_oxy.innerText)
+	// document.getElementById("ph").innerHTML;
+	//document.getElementById("oxy").innerHTML;
+	//document.getElementById("timenow").innerHTML;
 </script>
 </body>
 </html>
